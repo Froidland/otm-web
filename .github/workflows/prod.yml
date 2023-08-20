@@ -1,0 +1,45 @@
+name: Production Continuous Deployment
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+jobs:
+  build-docker-image:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: .
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3.5.2
+
+      - name: Build docker image
+        run: docker build -t ${{secrets.DOCKER_USERNAME}}/${{ vars.IMAGE_NAME }}:prod .
+
+      - name: Log into Docker and upload image
+        run: |
+          echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+          docker push ${{secrets.DOCKER_USERNAME}}/${{ vars.IMAGE_NAME }}:prod
+
+  deploy:
+    needs: [build-docker-image]
+    environment:
+      name: 'Production'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: SSH into VPS, pull docker image and run the image
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.PROD_SSH_HOST }}
+          username: ${{ secrets.PROD_SSH_USER }}
+          key: ${{ secrets.PROD_SSH_PRIVATE_KEY }}
+          script: |
+            echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+            docker stop ${{ vars.CONTAINER_NAME }}
+            docker rm ${{ vars.CONTAINER_NAME }}
+            docker pull ${{ secrets.DOCKER_USERNAME }}/${{ vars.IMAGE_NAME }}:prod
+            docker run --restart=unless-stopped -d --network=${{ secrets.DOCKER_NETWORK }} -p 127.0.0.1:4000:3000 --name ${{ vars.CONTAINER_NAME }} --env-file ${{ secrets.SECRET_PATH }} ${{ secrets.DOCKER_USERNAME }}/${{ vars.IMAGE_NAME }}:prod

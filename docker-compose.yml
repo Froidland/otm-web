@@ -1,0 +1,10 @@
+version: '3.8'
+services:
+  web:
+    image: notpancho/otm-web
+    env_file:
+      - .env
+    restart: unless-stopped
+    ports:
+      - 4000:4000
+      - 3306:3306
