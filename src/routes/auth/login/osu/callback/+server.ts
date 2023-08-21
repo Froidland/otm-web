@@ -20,7 +20,10 @@ export const GET = async ({ url, cookies, locals }) => {
 
 			const user = await createUser({
 				attributes: {
-					osu_username: osuUser.username
+					osu_username: osuUser.username,
+					osu_id: osuUser.id.toString(),
+					discord_username: null,
+					discord_id: null
 				}
 			});
 

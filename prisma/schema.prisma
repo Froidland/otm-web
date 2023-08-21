@@ -14,9 +14,18 @@ model User {
   id String @id
 
   osu_username String?
+  osu_id       String?
+
+  discord_username String?
+  discord_id       String?
 
   sessions Session[]
   keys     Key[]
+
+  @@index([osu_username])
+  @@index([osu_id])
+  @@index([discord_username])
+  @@index([discord_id])
 }
 
 model Session {

@@ -12,7 +12,10 @@ export const auth = lucia({
 
 	getUserAttributes: (data) => {
 		return {
-			osuUsername: data.osu_username
+			osu_username: data.osu_username,
+			osu_id: data.osu_id,
+			discord_username: data.discord_username,
+			discord_id: data.discord_id
 		};
 	}
 });

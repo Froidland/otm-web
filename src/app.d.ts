@@ -5,6 +5,9 @@ declare global {
 		type Auth = import('$lib/server/lucia').Auth;
 		type DatabaseUserAttributes = {
 			osu_username: string;
+			osu_id: string;
+			discord_username: string?;
+			discord_id: string?;
 		};
 		type DatabaseSessionAttributes = {};
 	}
