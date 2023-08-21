@@ -1,6 +1,6 @@
 import { auth } from '$lib/server/lucia';
 
-export async function POST({ locals }) {
+export async function GET({ locals }) {
 	const session = await locals.auth.validate();
 
 	if (!session) {
