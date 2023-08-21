@@ -1,3 +1,4 @@
+import { db } from '$lib/server/db.js';
 import { auth, osuAuth } from '$lib/server/lucia.js';
 
 export const GET = async ({ url, cookies, locals }) => {
@@ -12,7 +13,7 @@ export const GET = async ({ url, cookies, locals }) => {
 	}
 
 	try {
-		const { existingUser, osuUser, createUser } = await osuAuth.validateCallback(code);
+		const { existingUser, osuUser, osuTokens, createUser } = await osuAuth.validateCallback(code);
 
 		const getUser = async () => {
 			if (existingUser) return existingUser;
@@ -20,6 +21,19 @@ export const GET = async ({ url, cookies, locals }) => {
 			const user = await createUser({
 				attributes: {
 					osu_username: osuUser.username
+				}
+			});
+
+			await db.oAuthCredentials.create({
+				data: {
+					access_token: osuTokens.accessToken,
+					refresh_token: osuTokens.refreshToken,
+					access_token_expires_in: osuTokens.accessTokenExpiresIn,
+					key: {
+						connect: {
+							id: `osu:${osuUser.id}`
+						}
+					}
 				}
 			});
 
@@ -43,6 +57,7 @@ export const GET = async ({ url, cookies, locals }) => {
 		});
 		// eslint-disable-next-line
 	} catch (error: any) {
+		console.log(error);
 		//! Apparently there is an error with the OAuthRequestError import from lucia.
 		if (error.message === 'OAUTH_REQUEST_FAILED') {
 			return new Response(null, {

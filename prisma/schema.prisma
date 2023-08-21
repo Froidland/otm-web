@@ -39,5 +39,21 @@ model Key {
 
   hashed_password String?
 
+  oauth_credentials OAuthCredentials?
+
   @@index([user_id])
+}
+
+model OAuthCredentials {
+  access_token            String  @db.VarChar(1024)
+  refresh_token           String? @db.VarChar(1024)
+  access_token_expires_in Int
+
+  key    Key    @relation(fields: [key_id], references: [id])
+  key_id String
+
+  created_at DateTime @default(now()) @db.Timestamp(6)
+  updated_at DateTime @updatedAt @db.Timestamp(6)
+
+  @@id([key_id])
 }
