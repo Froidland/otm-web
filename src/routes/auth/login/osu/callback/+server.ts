@@ -27,8 +27,11 @@ export async function GET({ url, cookies, locals }) {
 				}
 			});
 
-			await db.oAuthCredentials.create({
-				data: {
+			await db.oAuthCredentials.upsert({
+				where: {
+					key_id: `osu:${osuUser.id}`
+				},
+				create: {
 					access_token: osuTokens.accessToken,
 					refresh_token: osuTokens.refreshToken,
 					access_token_expires_in: osuTokens.accessTokenExpiresIn,
@@ -37,6 +40,11 @@ export async function GET({ url, cookies, locals }) {
 							id: `osu:${osuUser.id}`
 						}
 					}
+				},
+				update: {
+					access_token: osuTokens.accessToken,
+					refresh_token: osuTokens.refreshToken,
+					access_token_expires_in: osuTokens.accessTokenExpiresIn
 				}
 			});
 
