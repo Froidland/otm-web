@@ -5,4 +5,6 @@
 	<title>Home</title>
 </svelte:head>
 
-<p>Home</p>
+<div class="bg-zinc-800 rounded-xl p-4">
+	<h1>Home</h1>
+</div>
