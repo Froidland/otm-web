@@ -1,7 +1,7 @@
 import { db } from '$lib/server/db.js';
 import { auth, osuAuth } from '$lib/server/lucia.js';
 
-export const GET = async ({ url, cookies, locals }) => {
+export async function GET({ url, cookies, locals }) {
 	const storedState = cookies.get('osu_oauth_state');
 	const state = url.searchParams.get('state');
 	const code = url.searchParams.get('code');
@@ -72,4 +72,4 @@ export const GET = async ({ url, cookies, locals }) => {
 			status: 500
 		});
 	}
-};
+}

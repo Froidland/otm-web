@@ -1,7 +1,7 @@
 import { dev } from '$app/environment';
 import { osuAuth } from '$lib/server/lucia.js';
 
-export const GET = async ({ cookies }) => {
+export async function GET({ cookies }) {
 	const [url, state] = await osuAuth.getAuthorizationUrl();
 
 	cookies.set('osu_oauth_state', state, {
@@ -17,4 +17,4 @@ export const GET = async ({ cookies }) => {
 			Location: url.toString()
 		}
 	});
-};
+}
