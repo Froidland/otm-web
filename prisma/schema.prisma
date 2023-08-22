@@ -13,8 +13,8 @@ datasource db {
 model User {
   id String @id
 
-  osu_id       String?
-  osu_username String?
+  osu_id       String
+  osu_username String
 
   discord_id       String?
   discord_username String?
@@ -120,7 +120,7 @@ model Tournament {
   matches Match[]
   teams   Team[]
 
-  owner      User   @relation(fields: [creator_id], references: [id])
+  creator      User   @relation(fields: [creator_id], references: [id])
   creator_id String
 
   created_at DateTime @default(now()) @db.Timestamp(6)
@@ -187,7 +187,7 @@ model Team {
 model TeamInvite {
   id BigInt @id @default(autoincrement())
 
-  status TeamInviteStatus
+  status TeamInviteStatus @default(Pending)
 
   team    Team   @relation(fields: [team_id], references: [id])
   team_id String
@@ -202,6 +202,7 @@ model TeamInvite {
 }
 
 enum TeamInviteStatus {
+	Pending
   Accepted
   Rejected
 
