@@ -1,8 +1,8 @@
 -- CreateTable
 CREATE TABLE `users` (
     `id` VARCHAR(191) NOT NULL,
-    `osu_id` VARCHAR(191) NULL,
-    `osu_username` VARCHAR(191) NULL,
+    `osu_id` VARCHAR(191) NOT NULL,
+    `osu_username` VARCHAR(191) NOT NULL,
     `discord_id` VARCHAR(191) NULL,
     `discord_username` VARCHAR(191) NULL,
     `created_at` TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
@@ -114,7 +114,7 @@ CREATE TABLE `teams` (
 -- CreateTable
 CREATE TABLE `team_invites` (
     `id` BIGINT NOT NULL AUTO_INCREMENT,
-    `status` ENUM('Accepted', 'Rejected') NOT NULL,
+    `status` ENUM('Pending', 'Accepted', 'Rejected') NOT NULL DEFAULT 'Pending',
     `team_id` VARCHAR(191) NOT NULL,
     `user_id` VARCHAR(191) NOT NULL,
     `created_at` TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
