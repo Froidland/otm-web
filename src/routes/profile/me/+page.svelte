@@ -5,20 +5,20 @@
 </script>
 
 <svelte:head>
-	<title>{data.user.osu_username}'s Profile</title>
+	<title>{data.profile.osu_username}'s Profile</title>
 </svelte:head>
 
-	<p>osu! username: <span class="text-pink-300">{data.user.osu_username}</span></p>
-	<p>osu! id: <span class="text-pink-300">{data.user.osu_id}</span></p>
 <div class="bg-zinc-800 rounded-xl p-4 mx-64">
+	<p>osu! username: <span class="text-pink-300">{data.profile.osu_username}</span></p>
+	<p>osu! id: <span class="text-pink-300">{data.profile.osu_id}</span></p>
 	<p>
-		discord tag: <span class={data.user.discord_username ? 'text-blue-500' : 'text-red-500'}
-			>{data.user.discord_username}</span
+		discord tag: <span class={data.profile.discord_username ? 'text-blue-500' : 'text-red-500'}
+			>{data.profile.discord_username}</span
 		>
 	</p>
 	<p>
-		discord id: <span class={data.user.discord_id ? 'text-blue-500' : 'text-red-500'}
-			>{data.user.discord_id}</span
+		discord id: <span class={data.profile.discord_id ? 'text-blue-500' : 'text-red-500'}
+			>{data.profile.discord_id}</span
 		>
 	</p>
 </div>

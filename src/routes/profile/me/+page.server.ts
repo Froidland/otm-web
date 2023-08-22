@@ -9,7 +9,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 		throw redirect(302, '/');
 	}
 
-	const user = await db.user.findFirst({
+	const profile = await db.user.findFirst({
 		where: {
 			sessions: {
 				some: {
@@ -19,11 +19,11 @@ export const load: PageServerLoad = async ({ locals }) => {
 		}
 	});
 
-	if (!user) {
+	if (!profile) {
 		throw redirect(302, '/');
 	}
 
 	return {
-		user
+		profile
 	};
 };
