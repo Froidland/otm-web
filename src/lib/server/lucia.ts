@@ -6,7 +6,7 @@ import { osu } from '@lucia-auth/oauth/providers';
 import { db } from './db';
 
 export const auth = lucia({
-	env: 'DEV',
+	env: import.meta.env.DEV ? 'DEV' : 'PROD',
 	middleware: sveltekit(),
 	adapter: prisma(db),
 
