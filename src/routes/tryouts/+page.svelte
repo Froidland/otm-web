@@ -3,6 +3,6 @@
 </svelte:head>
 
 <div class="flex gap-4 mx-64">
-	<aside class="w-64 bg-zinc-800 rounded-xl p-4">Side menu</aside>
-	<div class="flex-1 bg-zinc-800 rounded-xl p-4">List of tryouts</div>
+	<aside class="w-64 bg-osu rounded-xl p-3">Side menu</aside>
+	<div class="flex-1 bg-osu rounded-xl p-3">List of tryouts</div>
 </div>
