@@ -35,7 +35,7 @@
 					: ''}"
 				href="/profile/me">Profile</Button
 			>
-			<Button href="/api/logout" class="rounded" variant="destructive">Logout</Button>
+			<Button href="/api/auth/logout" class="rounded" variant="destructive">Logout</Button>
 		{:else}
 			<Button class="rounded" href="/api/auth/login/osu">Login with osu!</Button>
 		{/if}
