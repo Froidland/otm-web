@@ -37,7 +37,7 @@
 			>
 			<Button href="/api/logout" class="rounded" variant="destructive">Logout</Button>
 		{:else}
-			<Button class="rounded" href="/auth/login/osu">Login with osu!</Button>
+			<Button class="rounded" href="/api/auth/login/osu">Login with osu!</Button>
 		{/if}
 	</div>
 </nav>
