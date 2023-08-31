@@ -8,7 +8,7 @@
 	<title>{data.profile.osu_username}'s Profile</title>
 </svelte:head>
 
-<div class="bg-osu rounded-xl p-4 mx-64">
+<div class="bg-osu rounded-xl p-4">
 	<p>osu! username: <span class="text-pink-300">{data.profile.osu_username}</span></p>
 	<p>osu! id: <span class="text-pink-300">{data.profile.osu_id}</span></p>
 	<p>
