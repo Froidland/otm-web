@@ -22,18 +22,17 @@ export async function GET({ url, cookies, locals }) {
 	}
 
 	try {
-		const { existingUser, discordUser, discordTokens, createKey } =
+		const { discordUser, discordTokens, createKey } =
 			await discordAuth.validateCallback(code);
 
-		console.log(existingUser);
 
-		const dbexistingUser = await db.user.findFirst({
+		const existingUser = await db.user.findFirst({
 			where: {
 				discord_id: discordUser.id
 			}
 		});
 
-		if (dbexistingUser) {
+		if (existingUser) {
 			return new Response(null, {
 				status: 409,
 				headers: {
