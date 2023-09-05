@@ -2,7 +2,7 @@ import { lucia } from 'lucia';
 import { sveltekit } from 'lucia/middleware';
 import { prisma } from '@lucia-auth/adapter-prisma';
 
-import { osu } from '@lucia-auth/oauth/providers';
+import { discord, osu } from '@lucia-auth/oauth/providers';
 import { db } from './db';
 
 export const auth = lucia({
@@ -24,6 +24,13 @@ export const osuAuth = osu(auth, {
 	clientId: import.meta.env.VITE_OSU_CLIENT_ID,
 	clientSecret: import.meta.env.VITE_OSU_CLIENT_SECRET,
 	redirectUri: import.meta.env.VITE_OSU_REDIRECT_URI
+});
+
+export const discordAuth = discord(auth, {
+	clientId: import.meta.env.VITE_DISCORD_CLIENT_ID,
+	clientSecret: import.meta.env.VITE_DISCORD_CLIENT_SECRET,
+	redirectUri: import.meta.env.VITE_DISCORD_REDIRECT_URI,
+	scope: ['guilds.join']
 });
 
 export type Auth = typeof auth;
