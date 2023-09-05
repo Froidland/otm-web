@@ -15,6 +15,10 @@
 		discord tag: <span class={data.profile.discord_username ? 'text-blue-500' : 'text-red-500'}
 			>{data.profile.discord_username}</span
 		>
+		<!-- TODO: Make a warning modal saying that this action will close all sessions in other browsers. -->
+		{#if !data.profile.discord_id}
+			<a href="/api/auth/login/discord" class="hover:text-blue-500">Link to discord!</a>
+		{/if}
 	</p>
 	<p>
 		discord id: <span class={data.profile.discord_id ? 'text-blue-500' : 'text-red-500'}
