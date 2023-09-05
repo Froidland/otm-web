@@ -68,7 +68,7 @@ export async function GET({ url, cookies, locals }) {
 		});
 		// eslint-disable-next-line
 	} catch (error: any) {
-		console.log(error);
+		console.error(error);
 		//! Apparently there is an error with the OAuthRequestError import from lucia.
 		if (error.message === 'OAUTH_REQUEST_FAILED') {
 			return new Response(null, {
