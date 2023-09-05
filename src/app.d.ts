@@ -9,13 +9,14 @@ declare global {
 			discord_username: string?;
 			discord_id: string?;
 		};
-		type DatabaseSessionAttributes = {};
+		type DatabaseSessionAttributes = NonNullable<unknown>
 	}
 
 	namespace App {
 		// interface Error {}
 		interface Locals {
 			auth: import('lucia').AuthRequest;
+			session: import('lucia').Session | null;
 		}
 		// interface PageData {}
 		// interface Platform {}
