@@ -77,12 +77,12 @@ export async function GET({ url, cookies, locals }) {
 			}
 		});
 
+		await auth.invalidateAllUserSessions(locals.session.user.userId);
+
 		const session = await auth.createSession({
 			userId: locals.session.user.userId,
 			attributes: {}
 		});
-
-		await auth.invalidateAllUserSessions(locals.session.user.userId);
 
 		locals.auth.setSession(session);
 
