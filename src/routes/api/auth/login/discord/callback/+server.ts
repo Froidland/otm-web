@@ -22,9 +22,7 @@ export async function GET({ url, cookies, locals }) {
 	}
 
 	try {
-		const { discordUser, discordTokens, createKey } =
-			await discordAuth.validateCallback(code);
-
+		const { discordUser, discordTokens, createKey } = await discordAuth.validateCallback(code);
 
 		const existingUser = await db.user.findFirst({
 			where: {
@@ -34,10 +32,7 @@ export async function GET({ url, cookies, locals }) {
 
 		if (existingUser) {
 			return new Response(null, {
-				status: 400,
-				headers: {
-					Location: '/' // TODO: Redirect to error page: Discord account already in use.
-				}
+				status: 400
 			});
 		}
 
