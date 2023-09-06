@@ -34,7 +34,7 @@ export async function GET({ url, cookies, locals }) {
 
 		if (existingUser) {
 			return new Response(null, {
-				status: 409,
+				status: 400,
 				headers: {
 					Location: '/' // TODO: Redirect to error page: Discord account already in use.
 				}
