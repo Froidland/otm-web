@@ -13,10 +13,15 @@ export async function GET({ url, cookies, locals }) {
 	}
 
 	try {
-		const { existingUser, osuUser, osuTokens, createUser } = await osuAuth.validateCallback(code);
+		const { getExistingUser, osuUser, osuTokens, createUser } =
+			await osuAuth.validateCallback(code);
 
 		const getUser = async () => {
-			if (existingUser) return existingUser;
+			const existingUser = await getExistingUser();
+
+			if (existingUser) {
+				return existingUser;
+			}
 
 			const user = await createUser({
 				attributes: {
