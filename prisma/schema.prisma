@@ -16,6 +16,9 @@ model User {
   discord_id       String?
   discord_username String?
 
+  google_id String?
+  google_email	 String?
+
   // Creator relations
   created_tournaments Tournament[]
   created_tryouts     Tryout[]

@@ -2,7 +2,7 @@ import { lucia } from 'lucia';
 import { sveltekit } from 'lucia/middleware';
 import { prisma } from '@lucia-auth/adapter-prisma';
 
-import { discord, osu } from '@lucia-auth/oauth/providers';
+import { discord, google, osu } from '@lucia-auth/oauth/providers';
 import { db } from './db';
 import { dev } from '$app/environment';
 
@@ -32,6 +32,17 @@ export const discordAuth = discord(auth, {
 	clientSecret: process.env.VITE_DISCORD_CLIENT_SECRET,
 	redirectUri: process.env.VITE_DISCORD_REDIRECT_URI,
 	scope: ['guilds.join']
+});
+
+export const googleAuth = google(auth, {
+	clientId: process.env.VITE_GOOGLE_CLIENT_ID,
+	clientSecret: process.env.VITE_GOOGLE_CLIENT_SECRET,
+	redirectUri: process.env.VITE_GOOGLE_REDIRECT_URI,
+	scope: [
+		'https://www.googleapis.com/auth/userinfo.email',
+		'https://www.googleapis.com/auth/spreadsheets'
+	],
+	accessType: 'offline'
 });
 
 export type Auth = typeof auth;
